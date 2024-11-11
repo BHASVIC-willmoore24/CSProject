@@ -1,3 +1,0 @@
-C:/Users/will.moore24/Downloads/CSProject/cmake-build-debug/CMakeFiles/CSProject.dir
-C:/Users/will.moore24/Downloads/CSProject/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/will.moore24/Downloads/CSProject/cmake-build-debug/CMakeFiles/rebuild_cache.dir
