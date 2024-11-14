@@ -1,0 +1,7 @@
+# ninja log v6
+24	899	7532224126173208	build.ninja	dd9fbf62f5213125
+4	317	7532223644716339	CMakeFiles/CSProject.dir/main.c.obj	42f0c001db669f18
+19	402	7532223644865947	CMakeFiles/CSProject.dir/Check_in.c.obj	ed19f9b7d52bbf94
+6	487	7532224126173208	build.ninja	dd9fbf62f5213125
+10	253	7532227294578170	CMakeFiles/CSProject.dir/Check_in.c.obj	ed19f9b7d52bbf94
+255	574	7532227297031648	CSProject.exe	eeb2c93d54c59a90
