@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "CSProject::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-CSProject-Debug-f1189a5821593797a2aa.json",
+					"jsonFile" : "target-CSProject-Debug-89f4b3591bf6ee2276f7.json",
 					"name" : "CSProject",
 					"projectIndex" : 0
 				}
@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "C:/Users/Lenovo/Downloads/CSProject/cmake-build-debug",
-		"source" : "C:/Users/Lenovo/Downloads/CSProject"
+		"build" : "C:/Users/sol/computer science/CSProject/cmake-build-debug",
+		"source" : "C:/Users/sol/computer science/CSProject"
 	},
 	"version" : 
 	{
