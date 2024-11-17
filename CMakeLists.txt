@@ -3,4 +3,4 @@ project(CSProject C)
 
 set(CMAKE_C_STANDARD 11)
 
-add_executable(CSProject main.c "Check_in.c")
+add_executable(CSProject "Check_in.c")

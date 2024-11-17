@@ -2,4 +2,4 @@ ToolSet: 11.0 w64 (local)@C:\Users\Lenovo\OneDrive - Patcham High School\Documen
 Ninja: 1.12.0@C:\Users\Lenovo\OneDrive - Patcham High School\Documents\CLion 2020.3.2\CLion 2024.2.1\bin\ninja\win\x64\ninja.exe
 Options: 
 
-Options:
+Options:-DCMAKE_MAKE_PROGRAM=C:/Users/Lenovo/OneDrive - Patcham High School/Documents/CLion 2020.3.2/CLion 2024.2.1/bin/ninja/win/x64/ninja.exe

@@ -1,3 +1,0 @@
-"C:\Users\Lenovo\OneDrive - Patcham High School\Documents\CLion 2020.3.2\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E rm -f CMakeFiles\CSProject.dir/objects.a
-C:\Users\Lenovo\ONEDRI~1\DOCUME~1\CLION2~1.2\CLION2~1.1\bin\mingw\bin\ar.exe qc CMakeFiles\CSProject.dir/objects.a @CMakeFiles\CSProject.dir\objects1.rsp
-C:\Users\Lenovo\ONEDRI~1\DOCUME~1\CLION2~1.2\CLION2~1.1\bin\mingw\bin\gcc.exe -g -Wl,--whole-archive CMakeFiles\CSProject.dir/objects.a -Wl,--no-whole-archive -o CSProject.exe -Wl,--out-implib,libCSProject.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\CSProject.dir\linkLibs.rsp

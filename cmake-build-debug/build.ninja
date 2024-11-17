@@ -49,12 +49,6 @@ cmake_ninja_workdir = C$:/Users/Lenovo/Downloads/CSProject/cmake-build-debug/
 
 build cmake_object_order_depends_target_CSProject: phony || .
 
-build CMakeFiles/CSProject.dir/main.c.obj: C_COMPILER__CSProject_unscanned_Debug C$:/Users/Lenovo/Downloads/CSProject/main.c || cmake_object_order_depends_target_CSProject
-  DEP_FILE = CMakeFiles\CSProject.dir\main.c.obj.d
-  FLAGS = -g -std=gnu11 -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles\CSProject.dir
-  OBJECT_FILE_DIR = CMakeFiles\CSProject.dir
-
 build CMakeFiles/CSProject.dir/Check_in.c.obj: C_COMPILER__CSProject_unscanned_Debug C$:/Users/Lenovo/Downloads/CSProject/Check_in.c || cmake_object_order_depends_target_CSProject
   DEP_FILE = CMakeFiles\CSProject.dir\Check_in.c.obj.d
   FLAGS = -g -std=gnu11 -fdiagnostics-color=always
@@ -69,7 +63,7 @@ build CMakeFiles/CSProject.dir/Check_in.c.obj: C_COMPILER__CSProject_unscanned_D
 #############################################
 # Link the executable CSProject.exe
 
-build CSProject.exe: C_EXECUTABLE_LINKER__CSProject_Debug CMakeFiles/CSProject.dir/main.c.obj CMakeFiles/CSProject.dir/Check_in.c.obj
+build CSProject.exe: C_EXECUTABLE_LINKER__CSProject_Debug CMakeFiles/CSProject.dir/Check_in.c.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\CSProject.dir
