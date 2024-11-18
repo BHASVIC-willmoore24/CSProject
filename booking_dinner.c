@@ -103,27 +103,32 @@ int book_table(int table_choice, int time_choice) {
 
 int main() {
     int choice;
+    int loop_menu = 1;
 
-    while (1) {
+    while (loop_menu == 1) {
         printf("\n--- Hotel Booking System ---\n");
         printf("1. Book a Dinner Table\n");
         printf("2. Exit\n");
         printf("Enter your choice: ");
-        scanf("%d", &choice);
         fflush(stdin);
+        scanf("%d", &choice);
 
         switch (choice) {
             case !1 || !2:
                 printf("Invalid choice. Please try again.\n");
+                loop_menu = 1;
             break;
             case 1:
                 book_table_menu();
+                loop_menu = 1;
             break;
             case 2:
                 printf("Exiting the system.\n"); // this will go to main menu
+                loop_menu = 0;
             return 0;
             default:
                 printf("Invalid choice. Please try again.\n");
+                loop_menu = 1;
         }
     }
 }
