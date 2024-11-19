@@ -7,23 +7,19 @@ void check_out (char *bookingID, char *user_firstname, char *user_surname) {
 	float bill = 0;
 	printf("%s : %s %s", bookingID, user_firstname, user_surname);
 
-	bill = calculate_cost (num_adults, num_children, wants_newspaper, selected_room_cost, selected_board_type, time_staying, user_dob);
+	bill = calculate_cost (num_adults, num_children, wants_newspaper, selected_room_cost, selected_board_type, time_staying, user_dob, user_age);
 
 	printf("The overall bill is %f", bill);
 
 }
 
 
-float calculate_cost (int adult, int child, bool newspaper, int room, int board, int time, char *dob) {
+float calculate_cost (int adult, int child, bool newspaper, int room, int board, int time, char *dob, int age) {
 	float cost = 0;
 	float cost_room = 0;
 	float cost_board = 0;
-	int age = 0;
 
 	cost_room = room;
-
-
-
 
 	if (age > 65) {
 		cost_room = cost_room * 0.9;
