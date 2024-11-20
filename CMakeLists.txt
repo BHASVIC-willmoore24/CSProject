@@ -4,4 +4,5 @@ project(CSProject C)
 set(CMAKE_C_STANDARD 11)
 
 add_executable(CSProject "booking_dinner.c"
-        booking_dinner.c)
+        hotel.c
+        hotel.c)
