@@ -15,7 +15,7 @@ int board_rates[] = {20, 15, 5};
 void generate_booking_id(char *surname, char *booking_id) {
     srand(time(0));
     int random_number = rand() % 10000;
-    sprintf(booking_id, "%s%d", surname, random_number);
+    sprintf(booking_id, "%s", surname, random_number);
 }
 
 
@@ -89,3 +89,4 @@ int main() {
 
     return 0;
 }
+//take user back to main menu allowing them to exit or book a dinner table. 
