@@ -11,6 +11,10 @@ void check_out (char *bookingID, char *user_firstname, char *user_surname) {
 
 	printf("The overall bill is %f", bill);
 
+	// ----------------------------
+	// Exit back to main menu/start
+	// ----------------------------
+
 }
 
 
