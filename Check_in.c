@@ -75,7 +75,7 @@ int main() {
 
     generate_booking_id(user_surname, booking_id);
 
-  
+
     printf("\n--- Booking Details ---\n");
     printf("Name: %s %s\n", user_first_name, user_surname);
     printf("Date of Birth: %s\n", user_dob);
@@ -89,4 +89,4 @@ int main() {
 
     return 0;
 }
-//take user back to main menu allowing them to exit or book a dinner table. 
+//take user back to main menu allowing them to exit or book a dinner table.

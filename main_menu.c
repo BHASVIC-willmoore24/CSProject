@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int main(){
+int main_menu(){
 
     int choice;
     int loop_menu = 1;
