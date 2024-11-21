@@ -3,9 +3,11 @@
 #include <string.h>
 #include <time.h>
 
+// constants
 int room_rates[] = {100, 100, 85, 75, 75, 50};
 int board_rates[] = {20, 15, 5};
 
+// arrays for guest information
 char booking_ids[100][50];
 char first_names[100][50];
 char last_names[100][50];
@@ -19,13 +21,15 @@ int lengths_of_stay[100];
 int room_numbers[100];
 int newspapers[100];
 
+// tracking for room and table availability
 int room_occupied[6] = {0, 0, 0, 0, 0, 0};
 int available_tables[3][2] = {{4, 4}, {4, 4}, {4, 4}};
 const char *table_names[3] = {"Endor", "Naboo", "Tatooine"};
 const char *time_slots[2] = {"7 PM", "9 PM"};
 
-int guest_count = 0;
+int guest_count = 0; // total number of guests checked in
 
+// function prototypes
 int main_menu();
 void check_in();
 void book_table_menu();
@@ -61,7 +65,7 @@ int main_menu() {
 }
 
 void check_in() {
-    if (guest_count >= 6) {
+    if (guest_count >= 6) { // doesnt let you check in if all rooms are occupied
         printf("All rooms are currently occupied. Cannot check in more guests.\n");
         return;
     }
@@ -79,7 +83,7 @@ void check_in() {
     printf("Enter total number of guests (Max 4): ");
     scanf("%d", &total_guests[guest_count]);
     if (total_guests[guest_count] > 4) {
-        printf("Maximum 4 guests allowed. Please try again.\n");
+        printf("Maximum 4 guests allowed. Please try again.\n"); // validation (we need lots more of this everywhere)
         return;
     }
 
@@ -105,7 +109,7 @@ void check_in() {
 
     printf("Select a room number (1-6): ");
     int room_choice;
-    while (1) {
+    while (1) { // loops until valid option is selected (used throughout)
         scanf("%d", &room_choice);
         fflush(stdin);
         if (room_choice < 1 || room_choice > 6 || room_occupied[room_choice - 1] == 1) {
@@ -114,10 +118,10 @@ void check_in() {
             break;
         }
     }
-    room_numbers[guest_count] = room_choice;
-    room_occupied[room_choice - 1] = 1;
+    room_numbers[guest_count] = room_choice; // assign room to specific guest
+    room_occupied[room_choice - 1] = 1; // marks room as occupied
 
-    sprintf(booking_ids[guest_count], "%s%d", last_names[guest_count], rand() % 10000);
+    sprintf(booking_ids[guest_count], "%s%d", last_names[guest_count], rand() % 10000); // generates booking id
 
     printf("\n--- Booking Details ---\n");
     printf("Name: %s %s\n", first_names[guest_count], last_names[guest_count]);
@@ -148,14 +152,13 @@ void book_table_menu() {
 
     display_available_tables();
 
+    int table_choice, time_choice;
     printf("Select a table (1 = Endor, 2 = Naboo, 3 = Tatooine): ");
-    int table_choice;
     scanf("%d", &table_choice);
     printf("Select a time slot (1 = 7 PM, 2 = 9 PM): ");
-    int time_choice;
     scanf("%d", &time_choice);
 
-    if (book_table(table_choice - 1, time_choice - 1, total_guests[index])) {
+    if (book_table(table_choice - 1, time_choice - 1, total_guests[index])) { // checks if table is available (function returns 1 if true which allows the if statement to go through)
         printf("Your table has been successfully booked at %s for %s!\n",
                table_names[table_choice - 1], time_slots[time_choice - 1]);
     } else {
@@ -179,31 +182,33 @@ void check_out() {
     printf("\n--- Checkout Details ---\n");
     printf("Name: %s %s\n", first_names[index], last_names[index]);
     printf("Booking ID: %s\n", booking_id);
-    printf("Total Cost: GPE: %.2f\n", total_cost);
+    printf("Total Cost: GBP: %.2f\n", total_cost);
 
-    room_occupied[room_numbers[index] - 1] = 0;
+    room_occupied[room_numbers[index] - 1] = 0; // frees the room
     printf("Room %d is now available.\n", room_numbers[index]);
 }
 
 int calculate_age(const char *dob) {
     int birth_day, birth_month, birth_year;
-    sscanf(dob, "%d/%d/%d", &birth_day, &birth_month, &birth_year);
+    sscanf(dob, "%d/%d/%d", &birth_day, &birth_month, &birth_year); // takes in just the numbers from their dob for calculation (this will be hard to validate where it is asked in check in)
 
     time_t t = time(NULL);
-    struct tm *current_date = localtime(&t);
+    struct tm *current_date = localtime(&t); // getting data for current date using time.h library
 
+    // storing the current date data as variables (im not 100% sure how this works, i looked up how to use this but i dont know how else to calculate age from dob)
     int current_day = current_date->tm_mday;
     int current_month = current_date->tm_mon + 1;
     int current_year = current_date->tm_year + 1900;
 
     int age = current_year - birth_year;
-    if (birth_month > current_month || (birth_month == current_month && birth_day > current_day)) {
+    if (birth_month > current_month || (birth_month == current_month && birth_day > current_day)) { // checks if they havent had their birthday yet and updates accordingly
         age--;
     }
 
     return age;
 }
 
+// goes through guest index with provided booking id and checks if it exists
 int find_guest_index(const char *booking_id) {
     for (int i = 0; i < guest_count; i++) {
         if (strcmp(booking_ids[i], booking_id) == 0) {
@@ -213,6 +218,7 @@ int find_guest_index(const char *booking_id) {
     return -1;
 }
 
+// checks which tables are available for the users party size and updates them when chosen
 int book_table(int table_choice, int time_choice, int party_size) {
     if (available_tables[table_choice][time_choice] >= party_size) {
         available_tables[table_choice][time_choice] -= party_size;
@@ -223,12 +229,12 @@ int book_table(int table_choice, int time_choice, int party_size) {
 
 float calculate_cost(int index) {
     float room_cost = room_rates[room_numbers[index] - 1] * lengths_of_stay[index];
-    if (ages[index] > 65) {
+    if (ages[index] > 65) { // checks senior discount
         room_cost *= 0.9;
     }
 
     float board_cost = (board_rates[0] * num_adults[index]) +
-                       (board_rates[0] * num_children[index] * 0.5);
+                       (board_rates[0] * num_children[index] * 0.5); // child discount
     board_cost *= lengths_of_stay[index];
 
     float newspaper_cost;
