@@ -20,6 +20,7 @@ char board_types[100][3];
 int lengths_of_stay[100];
 int room_numbers[100];
 int newspapers[100];
+int check_age;
 
 // tracking for room and table availability
 int room_occupied[6] = {0, 0, 0, 0, 0, 0};
@@ -70,34 +71,50 @@ void check_in() {
         return;
     }
 
-    printf("Enter your first name: ");
+    printf("Enter your first name (remove spaces): \n");
     scanf("%s", first_names[guest_count]);
-    printf("Enter your last name: ");
+    printf("Enter your last name (remove spaces): \n");
     scanf("%s", last_names[guest_count]);
-    printf("Enter your date of birth (DD/MM/YYYY): ");
+    printf("Enter your date of birth (DD/MM/YYYY): \n");
     scanf("%s", dobs[guest_count]);
 
     ages[guest_count] = calculate_age(dobs[guest_count]);
+    if (ages[guest_count] == 0) {
+        printf("This date is not possible. Please try again. \n");
+        return;
+    }
     printf("Your calculated age is: %d\n", ages[guest_count]);
+    if (ages[guest_count] < 16) { // age validation -- too young
+        printf("You are too young to book a room. Please try again. \n");
+        return;
+    }
+    if (ages[guest_count] > 120) { // age validation -- old
+        printf("Are you sure this is correct? (1 = yes, 0 = no) \n");
+        fflush(stdin);
+        scanf("%d", &check_age);
+        if (check_age != 1) {
+            return;
+        }
+    }
 
-    printf("Enter total number of guests (Max 4): ");
+    printf("Enter total number of guests (Max 4): \n");
     scanf("%d", &total_guests[guest_count]);
     if (total_guests[guest_count] > 4) {
         printf("Maximum 4 guests allowed. Please try again.\n"); // validation (we need lots more of this everywhere)
         return;
     }
 
-    printf("Enter the number of adults (over 16): ");
+    printf("Enter the number of adults (over 16): \n");
     scanf("%d", &num_adults[guest_count]);
     num_children[guest_count] = total_guests[guest_count] - num_adults[guest_count];
 
-    printf("Select board type (FB, HB, BB): ");
+    printf("Select board type (FB, HB, BB): \n");
     scanf("%s", board_types[guest_count]);
 
-    printf("Enter the length of stay in days: ");
+    printf("Enter the length of stay in days: \n");
     scanf("%d", &lengths_of_stay[guest_count]);
 
-    printf("Would you like a daily newspaper? (Yes=1, No=0): ");
+    printf("Would you like a daily newspaper? (Yes=1, No=0): \n");
     scanf("%d", &newspapers[guest_count]);
 
     printf("Available rooms and daily rates:\n");
@@ -107,13 +124,13 @@ void check_in() {
         }
     }
 
-    printf("Select a room number (1-6): ");
+    printf("Select a room number (1-6): \n");
     int room_choice;
     while (1) { // loops until valid option is selected (used throughout)
         scanf("%d", &room_choice);
         fflush(stdin);
         if (room_choice < 1 || room_choice > 6 || room_occupied[room_choice - 1] == 1) {
-            printf("Invalid or occupied room. Please select an available room number (1-6): ");
+            printf("Invalid or occupied room. Please select an available room number (1-6): \n");
         } else {
             break;
         }
@@ -136,7 +153,7 @@ void check_in() {
 
 void book_table_menu() {
     char booking_id[50];
-    printf("Enter your BookingID: ");
+    printf("Enter your BookingID: \n");
     scanf("%s", booking_id);
 
     int index = find_guest_index(booking_id);
@@ -153,9 +170,9 @@ void book_table_menu() {
     display_available_tables();
 
     int table_choice, time_choice;
-    printf("Select a table (1 = Endor, 2 = Naboo, 3 = Tatooine): ");
+    printf("Select a table (1 = Endor, 2 = Naboo, 3 = Tatooine): \n");
     scanf("%d", &table_choice);
-    printf("Select a time slot (1 = 7 PM, 2 = 9 PM): ");
+    printf("Select the number for the corresponding time you want (1 = 7 PM, 2 = 9 PM): \n");
     scanf("%d", &time_choice);
 
     if (book_table(table_choice - 1, time_choice - 1, total_guests[index])) { // checks if table is available (function returns 1 if true which allows the if statement to go through)
@@ -168,7 +185,7 @@ void book_table_menu() {
 
 void check_out() {
     char booking_id[50];
-    printf("Enter your BookingID: ");
+    printf("Enter your BookingID: \n");
     scanf("%s", booking_id);
 
     int index = find_guest_index(booking_id);
@@ -192,6 +209,9 @@ int calculate_age(const char *dob) {
     int birth_day, birth_month, birth_year;
     sscanf(dob, "%d/%d/%d", &birth_day, &birth_month, &birth_year); // takes in just the numbers from their dob for calculation (this will be hard to validate where it is asked in check in)
 
+    if ((birth_day > 31) || (birth_month > 12)) {
+        return 0;
+    }
     time_t t = time(NULL);
     struct tm *current_date = localtime(&t); // getting data for current date using time.h library
 
@@ -258,5 +278,6 @@ void display_available_tables() {
 }
 
 int main() {
+    srand(time(NULL));
     return main_menu();
 }
